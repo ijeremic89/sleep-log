@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "user"
+CREATE TABLE IF NOT EXISTS users
 (
     id            BIGSERIAL PRIMARY KEY,
     first_name    VARCHAR(255)        NOT NULL,
@@ -18,5 +18,5 @@ CREATE TABLE IF NOT EXISTS sleep_log
     total_time_in_bed INTERVAL NOT NULL,
     mood              VARCHAR(10) CHECK (mood IN ('BAD', 'OK', 'GOOD')),
     created_date      TIMESTAMP DEFAULT now(),
-    FOREIGN KEY (user_id) REFERENCES "user" (id)
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
