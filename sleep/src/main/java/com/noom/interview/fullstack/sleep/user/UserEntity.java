@@ -1,7 +1,6 @@
 package com.noom.interview.fullstack.sleep.user;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -26,12 +25,6 @@ public class UserEntity {
   @Email(message = "Invalid email format")
   private String email;
 
-  @Column(name = "created_date", nullable = false, updatable = false)
-  private LocalDateTime createdDate;
-
-  @Column(name = "modified_date")
-  private LocalDateTime modifiedDate;
-
   public Long getId() {
     return id;
   }
@@ -40,46 +33,27 @@ public class UserEntity {
     this.id = id;
   }
 
-  public @NotBlank(message = "First name cannot be blank") String getFirstName() {
+  public String getFirstName() {
     return firstName;
   }
 
-  public void setFirstName(@NotBlank(message = "First name cannot be blank") String firstName) {
+  public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
-  public @NotBlank(message = "Last name cannot be blank") String getLastName() {
+  public String getLastName() {
     return lastName;
   }
 
-  public void setLastName(@NotBlank(message = "Last name cannot be blank") String lastName) {
+  public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
-  public @NotBlank(message = "Email cannot be blank") @Email(message = "Invalid email format")
-  String getEmail() {
+  public String getEmail() {
     return email;
   }
 
-  public void setEmail(
-      @NotBlank(message = "Email cannot be blank") @Email(message = "Invalid email format")
-          String email) {
+  public void setEmail(String email) {
     this.email = email;
-  }
-
-  public LocalDateTime getCreatedDate() {
-    return createdDate;
-  }
-
-  public void setCreatedDate(LocalDateTime createdDate) {
-    this.createdDate = createdDate;
-  }
-
-  public LocalDateTime getModifiedDate() {
-    return modifiedDate;
-  }
-
-  public void setModifiedDate(LocalDateTime modifiedDate) {
-    this.modifiedDate = modifiedDate;
   }
 }

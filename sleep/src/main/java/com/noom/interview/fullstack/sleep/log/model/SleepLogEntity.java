@@ -1,11 +1,8 @@
 package com.noom.interview.fullstack.sleep.log.model;
 
-import com.noom.interview.fullstack.sleep.common.converter.DurationConverter;
 import com.noom.interview.fullstack.sleep.user.UserEntity;
 import jakarta.persistence.*;
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import javax.validation.constraints.NotNull;
 
@@ -33,16 +30,12 @@ public class SleepLogEntity {
   @NotNull(message = "Time in bed to cannot be null")
   private LocalTime timeInBedTo;
 
-  @Convert(converter = DurationConverter.class)
   @Column(name = "total_time_in_bed", nullable = false)
-  private Duration totalTimeInBed;
+  private Long totalTimeInBedInSeconds;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "mood", nullable = false)
   private Mood mood;
-
-  @Column(name = "created_date", nullable = false)
-  private LocalDateTime createdDate;
 
   public Long getId() {
     return id;
@@ -60,38 +53,36 @@ public class SleepLogEntity {
     this.user = user;
   }
 
-  public @NotNull(message = "Sleep date cannot be null") LocalDate getSleepDate() {
+  public LocalDate getSleepDate() {
     return sleepDate;
   }
 
-  public void setSleepDate(@NotNull(message = "Sleep date cannot be null") LocalDate sleepDate) {
+  public void setSleepDate(LocalDate sleepDate) {
     this.sleepDate = sleepDate;
   }
 
-  public @NotNull(message = "Time in bed from cannot be null") LocalTime getTimeInBedFrom() {
+  public LocalTime getTimeInBedFrom() {
     return timeInBedFrom;
   }
 
-  public void setTimeInBedFrom(
-      @NotNull(message = "Time in bed from cannot be null") LocalTime timeInBedFrom) {
+  public void setTimeInBedFrom(LocalTime timeInBedFrom) {
     this.timeInBedFrom = timeInBedFrom;
   }
 
-  public @NotNull(message = "Time in bed to cannot be null") LocalTime getTimeInBedTo() {
+  public LocalTime getTimeInBedTo() {
     return timeInBedTo;
   }
 
-  public void setTimeInBedTo(
-      @NotNull(message = "Time in bed to cannot be null") LocalTime timeInBedTo) {
+  public void setTimeInBedTo(LocalTime timeInBedTo) {
     this.timeInBedTo = timeInBedTo;
   }
 
-  public Duration getTotalTimeInBed() {
-    return totalTimeInBed;
+  public long getTotalTimeInBedInSeconds() {
+    return totalTimeInBedInSeconds;
   }
 
-  public void setTotalTimeInBed(Duration totalTimeInBed) {
-    this.totalTimeInBed = totalTimeInBed;
+  public void setTotalTimeInBedInSeconds(Long totalTimeInBedInSeconds) {
+    this.totalTimeInBedInSeconds = totalTimeInBedInSeconds;
   }
 
   public Mood getMood() {
@@ -100,13 +91,5 @@ public class SleepLogEntity {
 
   public void setMood(Mood mood) {
     this.mood = mood;
-  }
-
-  public LocalDateTime getCreatedDate() {
-    return createdDate;
-  }
-
-  public void setCreatedDate(LocalDateTime createdDate) {
-    this.createdDate = createdDate;
   }
 }
