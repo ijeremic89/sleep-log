@@ -13,19 +13,15 @@ import com.noom.interview.fullstack.sleep.user.UserRepository;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CreateSleepLogServiceImpl implements CreateSleepLogService {
 
   private final SleepLogRepository sleepLogRepository;
   private final UserRepository userRepository;
-
-  public CreateSleepLogServiceImpl(
-      SleepLogRepository sleepLogRepository, UserRepository userRepository) {
-    this.sleepLogRepository = sleepLogRepository;
-    this.userRepository = userRepository;
-  }
 
   @Override
   public SleepLogResponse createLastNightSleepLog(SleepLogRequest request, Long userId) {

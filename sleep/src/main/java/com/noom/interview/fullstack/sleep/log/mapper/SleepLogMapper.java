@@ -11,6 +11,10 @@ import org.mapstruct.factory.Mappers;
 public interface SleepLogMapper {
   SleepLogMapper INSTANCE = Mappers.getMapper(SleepLogMapper.class);
 
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "user", ignore = true)
+  @Mapping(target = "sleepDate", ignore = true)
+  @Mapping(target = "totalTimeInBed", ignore = true)
   SleepLogEntity toEntity(SleepLogRequest request);
 
   @Mapping(

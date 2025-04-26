@@ -6,9 +6,11 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+@Data
 @Entity
 @Table(name = "sleep_log")
 public class SleepLogEntity {
@@ -40,60 +42,4 @@ public class SleepLogEntity {
   @Enumerated(EnumType.STRING)
   @Column(name = "mood", nullable = false)
   private Mood mood;
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public UserEntity getUser() {
-    return user;
-  }
-
-  public void setUser(UserEntity user) {
-    this.user = user;
-  }
-
-  public LocalDate getSleepDate() {
-    return sleepDate;
-  }
-
-  public void setSleepDate(LocalDate sleepDate) {
-    this.sleepDate = sleepDate;
-  }
-
-  public LocalTime getTimeInBedFrom() {
-    return timeInBedFrom;
-  }
-
-  public void setTimeInBedFrom(LocalTime timeInBedFrom) {
-    this.timeInBedFrom = timeInBedFrom;
-  }
-
-  public LocalTime getTimeInBedTo() {
-    return timeInBedTo;
-  }
-
-  public void setTimeInBedTo(LocalTime timeInBedTo) {
-    this.timeInBedTo = timeInBedTo;
-  }
-
-  public Duration getTotalTimeInBed() {
-    return totalTimeInBed;
-  }
-
-  public void setTotalTimeInBed(Duration totalTimeInBedInSeconds) {
-    this.totalTimeInBed = totalTimeInBedInSeconds;
-  }
-
-  public Mood getMood() {
-    return mood;
-  }
-
-  public void setMood(Mood mood) {
-    this.mood = mood;
-  }
 }
