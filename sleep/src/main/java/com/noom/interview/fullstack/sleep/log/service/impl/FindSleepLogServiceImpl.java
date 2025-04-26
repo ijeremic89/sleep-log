@@ -3,11 +3,9 @@ package com.noom.interview.fullstack.sleep.log.service.impl;
 import com.noom.interview.fullstack.sleep.common.exception.SleepLogNotFoundException;
 import com.noom.interview.fullstack.sleep.log.SleepLogRepository;
 import com.noom.interview.fullstack.sleep.log.mapper.SleepLogMapper;
-import com.noom.interview.fullstack.sleep.log.model.SleepLogEntity;
 import com.noom.interview.fullstack.sleep.log.model.SleepLogResponse;
 import com.noom.interview.fullstack.sleep.log.service.FindSleepLogService;
 import java.time.LocalDate;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
