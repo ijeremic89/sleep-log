@@ -31,7 +31,6 @@ class SleepLogSummaryServiceImplTest {
   @InjectMocks private SleepLogSummaryServiceImpl sleepLogSummaryService;
 
   private UserEntity mockUser;
-  private SleepLogSummaryProjection mockSleepLogSummary;
 
   @BeforeEach
   void setUp() {
@@ -83,9 +82,7 @@ class SleepLogSummaryServiceImplTest {
     // When & Then
     assertThrows(
         UserNotFoundException.class,
-        () -> {
-          sleepLogSummaryService.getLastNDaysSummary(userId, days);
-        });
+        () -> sleepLogSummaryService.getLastNDaysSummary(userId, days));
   }
 
   @Test
@@ -98,10 +95,7 @@ class SleepLogSummaryServiceImplTest {
 
     // When & Then
     assertThrows(
-        InvalidDaysException.class,
-        () -> {
-          sleepLogSummaryService.getLastNDaysSummary(userId, days);
-        });
+        InvalidDaysException.class, () -> sleepLogSummaryService.getLastNDaysSummary(userId, days));
   }
 
   @Test

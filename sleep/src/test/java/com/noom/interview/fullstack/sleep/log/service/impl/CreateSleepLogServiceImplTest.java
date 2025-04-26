@@ -97,9 +97,7 @@ class CreateSleepLogServiceImplTest {
     // When & Then
     assertThrows(
         UserNotFoundException.class,
-        () -> {
-          createSleepLogService.createLastNightSleepLog(validRequest, 1L);
-        });
+        () -> createSleepLogService.createLastNightSleepLog(validRequest, 1L));
   }
 
   @Test
@@ -112,9 +110,7 @@ class CreateSleepLogServiceImplTest {
     // When & Then
     assertThrows(
         SleepLogAlreadyExistsException.class,
-        () -> {
-          createSleepLogService.createLastNightSleepLog(validRequest, 1L);
-        });
+        () -> createSleepLogService.createLastNightSleepLog(validRequest, 1L));
   }
 
   @Test
@@ -130,8 +126,6 @@ class CreateSleepLogServiceImplTest {
     // When & Then
     assertThrows(
         IllegalArgumentException.class,
-        () -> {
-          createSleepLogService.createLastNightSleepLog(requestWithNullTimes, 1L);
-        });
+        () -> createSleepLogService.createLastNightSleepLog(requestWithNullTimes, 1L));
   }
 }

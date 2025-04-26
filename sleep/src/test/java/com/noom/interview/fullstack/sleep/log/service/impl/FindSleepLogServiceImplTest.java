@@ -27,12 +27,11 @@ class FindSleepLogServiceImplTest {
 
   @InjectMocks private FindSleepLogServiceImpl findSleepLogService;
 
-  private UserEntity mockUser;
   private SleepLogEntity mockSleepLogEntity;
 
   @BeforeEach
   void setUp() {
-    mockUser = new UserEntity();
+    UserEntity mockUser = new UserEntity();
     mockUser.setId(1L);
 
     mockSleepLogEntity = new SleepLogEntity();
@@ -71,9 +70,6 @@ class FindSleepLogServiceImplTest {
 
     // When & Then
     assertThrows(
-        SleepLogNotFoundException.class,
-        () -> {
-          findSleepLogService.findLastNightSleepLog(1L);
-        });
+        SleepLogNotFoundException.class, () -> findSleepLogService.findLastNightSleepLog(1L));
   }
 }
