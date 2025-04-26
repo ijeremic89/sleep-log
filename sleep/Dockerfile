@@ -16,6 +16,6 @@ RUN ./gradlew wrapper
 
 COPY src/ src
 
-RUN ./gradlew build --no-daemon
+RUN ./gradlew build --no-daemon -x test
 
 ENTRYPOINT ["java","-jar","build/libs/sleep-0.0.1-SNAPSHOT.jar"]
