@@ -1,11 +1,10 @@
 package com.noom.interview.fullstack.sleep.common.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.noom.interview.fullstack.sleep.log.model.Mood;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.noom.interview.fullstack.sleep.log.model.Mood;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -58,5 +57,11 @@ public class GlobalRestExceptionHandler {
 
     return new ResponseEntity<>(
         new ErrorResponse("Malformed JSON", null, LocalDateTime.now()), HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(InvalidDaysException.class)
+  public ResponseEntity<Object> handleInvalidDays(InvalidDaysException ex) {
+    var response = new ErrorResponse(ex.getMessage(), null, LocalDateTime.now());
+    return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
 }
