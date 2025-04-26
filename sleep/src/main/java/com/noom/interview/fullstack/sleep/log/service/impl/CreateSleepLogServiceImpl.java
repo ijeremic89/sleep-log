@@ -1,5 +1,6 @@
 package com.noom.interview.fullstack.sleep.log.service.impl;
 
+import com.noom.interview.fullstack.sleep.common.exception.SleepLogAlreadyExistsException;
 import com.noom.interview.fullstack.sleep.common.exception.UserNotFoundException;
 import com.noom.interview.fullstack.sleep.log.SleepLogRepository;
 import com.noom.interview.fullstack.sleep.log.mapper.SleepLogMapper;
@@ -28,16 +29,22 @@ public class CreateSleepLogServiceImpl implements CreateSleepLogService {
 
   @Override
   public SleepLogResponse createLastNightSleepLog(SleepLogRequest request, Long userId) {
+    LocalDate sleepDate = LocalDate.now();
     UserEntity user =
         userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
 
-    //TODO: check if sleep log already exists for last night
+    sleepLogRepository
+        .findByUserIdAndFromDate(userId, sleepDate)
+        .ifPresent(
+            sleep -> {
+              throw new SleepLogAlreadyExistsException(userId, sleepDate);
+            });
 
     SleepLogEntity sleepLog = SleepLogMapper.INSTANCE.toEntity(request);
     sleepLog.setUser(user);
-    sleepLog.setSleepDate(LocalDate.now());
-    sleepLog.setTotalTimeInBedInSeconds(
-        calculateTotalTimeInBed(request.timeInBedFrom(), request.timeInBedTo()).getSeconds());
+    sleepLog.setSleepDate(sleepDate);
+    sleepLog.setTotalTimeInBed(
+        calculateTotalTimeInBed(request.timeInBedFrom(), request.timeInBedTo()));
     sleepLogRepository.save(sleepLog);
 
     return SleepLogMapper.INSTANCE.toResponse(sleepLog);

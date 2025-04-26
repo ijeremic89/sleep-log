@@ -2,9 +2,12 @@ package com.noom.interview.fullstack.sleep.log.model;
 
 import com.noom.interview.fullstack.sleep.user.UserEntity;
 import jakarta.persistence.*;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "sleep_log")
@@ -30,8 +33,9 @@ public class SleepLogEntity {
   @NotNull(message = "Time in bed to cannot be null")
   private LocalTime timeInBedTo;
 
-  @Column(name = "total_time_in_bed", nullable = false)
-  private Long totalTimeInBedInSeconds;
+  @Column(name = "total_time_in_bed", columnDefinition = "interval")
+  @JdbcTypeCode(SqlTypes.INTERVAL_SECOND)
+  private Duration totalTimeInBed;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "mood", nullable = false)
@@ -77,12 +81,12 @@ public class SleepLogEntity {
     this.timeInBedTo = timeInBedTo;
   }
 
-  public long getTotalTimeInBedInSeconds() {
-    return totalTimeInBedInSeconds;
+  public Duration getTotalTimeInBed() {
+    return totalTimeInBed;
   }
 
-  public void setTotalTimeInBedInSeconds(Long totalTimeInBedInSeconds) {
-    this.totalTimeInBedInSeconds = totalTimeInBedInSeconds;
+  public void setTotalTimeInBed(Duration totalTimeInBedInSeconds) {
+    this.totalTimeInBed = totalTimeInBedInSeconds;
   }
 
   public Mood getMood() {

@@ -3,8 +3,12 @@ package com.noom.interview.fullstack.sleep.common.exception;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.noom.interview.fullstack.sleep.log.model.Mood;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,5 +37,26 @@ public class GlobalRestExceptionHandler {
   public ResponseEntity<Object> handleUserNotFound(UserNotFoundException ex) {
     var response = new ErrorResponse(ex.getMessage(), null, LocalDateTime.now());
     return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(SleepLogAlreadyExistsException.class)
+  public ResponseEntity<Object> handleAlreadyExists(SleepLogAlreadyExistsException ex) {
+    var response = new ErrorResponse(ex.getMessage(), null, LocalDateTime.now());
+    return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+  }
+
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public ResponseEntity<Object> handleInvalidEnum(HttpMessageNotReadableException ex) {
+    if (ex.getCause() instanceof InvalidFormatException formatEx
+        && formatEx.getTargetType() == Mood.class) {
+
+      var response =
+          new ErrorResponse(
+              "Invalid mood. Must be one of: BAD, OK, GOOD.", null, LocalDateTime.now());
+      return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    return new ResponseEntity<>(
+        new ErrorResponse("Malformed JSON", null, LocalDateTime.now()), HttpStatus.BAD_REQUEST);
   }
 }
