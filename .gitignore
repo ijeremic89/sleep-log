@@ -13,3 +13,6 @@
 /sleep/.idea
 /sleep/.gradle
 /sleep/build
+
+/sleep/src/main/resources/application.properties
+/sleep/src/main/resources/application-unittest.properties
