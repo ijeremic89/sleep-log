@@ -23,6 +23,8 @@ public class CreateSleepLogServiceImpl implements CreateSleepLogService {
   private final SleepLogRepository sleepLogRepository;
   private final UserRepository userRepository;
 
+  private static final Duration FULL_DAY = Duration.ofHours(24);
+
   @Override
   public SleepLogResponse createLastNightSleepLog(SleepLogRequest request, Long userId) {
     LocalDate sleepDate = LocalDate.now();
@@ -53,6 +55,6 @@ public class CreateSleepLogServiceImpl implements CreateSleepLogService {
 
     return from.isBefore(to)
         ? Duration.between(from, to)
-        : Duration.ofHours(24).minus(Duration.between(to, from));
+        : FULL_DAY.minus(Duration.between(to, from));
   }
 }

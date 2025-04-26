@@ -32,13 +32,13 @@ public class SleepLogController {
   public ResponseEntity<SleepLogResponse> findLastNightSleepLog(
       @RequestParam("userId") Long userId) {
     SleepLogResponse response = findSleepLogService.findLastNightSleepLog(userId);
-    return new ResponseEntity<>(response, HttpStatus.OK);
+    return ResponseEntity.ok(response);
   }
 
   @GetMapping("/summary")
   public ResponseEntity<SleepLogSummaryResponse> getLastNDaysSummary(
       @RequestParam("userId") Long userId, @RequestParam("days") Integer days) {
     SleepLogSummaryResponse response = sleepLogSummaryService.getLastNDaysSummary(userId, days);
-    return new ResponseEntity<>(response, HttpStatus.OK);
+    return ResponseEntity.ok(response);
   }
 }

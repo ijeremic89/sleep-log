@@ -64,4 +64,10 @@ public class GlobalRestExceptionHandler {
     var response = new ErrorResponse(ex.getMessage(), null, LocalDateTime.now());
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
   }
+
+  @ExceptionHandler(SleepLogNotFoundException.class)
+  public ResponseEntity<Object> handleSleepLogNotFound(SleepLogNotFoundException ex) {
+    var response = new ErrorResponse(ex.getMessage(), null, LocalDateTime.now());
+    return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+  }
 }
